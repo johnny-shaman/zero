@@ -1,0 +1,87 @@
+
+#Zero language
+
+
+//ex hello world
+main _ : 
+  say 'Hello World'
+  say
+    'Hello Zero'
+  say
+    ('Hello' ' ' 'Zero')
+
+// Otherwise hello world
+
+main _ -> say 'Hello World'
+
+
+//ex Functional 1
+
+mul : *
+dbl : mul 2
+say dbl 3
+
+
+//ex Functional 2
+
+myFn a b : a ** 2 + a * b
+myFn2 : myFn 2
+say myFn2 3
+
+say 4 myFn 7
+
+
+//ex Functional 3
+//Can use ',' or ';'
+
+R f x : f x , x
+say R ^x -> ('Left' x) 'Right'
+
+
+//Tuple
+(1 2 3 'test' 4 5)
+
+//Dictionaly (Structure)
+myStationary : 
+  pencil : 3
+  eraser : 
+    type : 'soft'
+    number : 4
+  pen    : 1
+
+
+// structure Abstruction
+
+Profile o :
+  first // declare public
+
+nameGettable Profile o :
+  name : (first ' ' last)
+
+luke : Profile
+  first  : 'Luke'
+  last   : 'Skywalker'
+  age    : 18
+  father : Profile
+    first  : 'Anakin'
+    last
+
+
+say luke name 
+
+say ^x -> luke[x] 'first'
+
+say luke age //none
+
+say luke father name //none
+
+
+//Enumerate
+
+getCase x : case x
+  'Luke' : 'first'
+  'Skywalker' : 'last'
+  18 : 'age'
+  'father' : Profile
+    first : 'Anakin'
+
