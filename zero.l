@@ -39,19 +39,15 @@
 "-"	  return SUB ;
 
 "="   return EQ ;
-":"   return IS  ;
+":"   return IS ;
 ","   return CNM ;
 "."   return DOT ;
 
-"&"   return AND ;
-"|"   return OR  ;
-"^"   return XOR ;
-"!"   return NOT ;
+"|"   return PIP ;
+"^"   return CLT ;
 
 "("   return LSP ;
 ")"   return RSP ;
-"{"   return LMP ;
-"}"   return RMP ;
 "["   return LLP ;
 "]"   return RLP ;
 

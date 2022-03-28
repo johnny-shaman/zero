@@ -53,18 +53,24 @@ myStationary :
 // structure Abstruction
 
 Profile o :
-  first // declare public
+  //declare public
+  first
+  father
 
-nameGettable Profile o :
   name : (first ' ' last)
+
+openAge o :
+  age
+  sayAge x : ("I'm " (age - x) 'years.')
 
 luke : Profile
   first  : 'Luke'
   last   : 'Skywalker'
   age    : 18
-  father : Profile
+  father : Profile openAge
     first  : 'Anakin'
     last
+    age    : infinity
 
 
 say luke name 
@@ -73,7 +79,7 @@ say ^x -> luke[x] 'first'
 
 say luke age //none
 
-say luke father name //none
+say luke father age
 
 
 //Enumerate
