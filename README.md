@@ -1,3 +1,0 @@
-# clean
-
-Trainning SelfBuild Compiler

@@ -1,5 +1,1 @@
-*~
-*.o
-tmp*
-a.out
-main
+/target
