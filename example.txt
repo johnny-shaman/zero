@@ -35,11 +35,11 @@ say 4 myFn 7
 //Can use ',' or ';'
 
 R f x : f x , x
-say R ^x -> ('Left' x) 'Right'
+say R ^x -> ('Left' x) 'Right' // 'Right'
 
 
 //Tuple
-(1 2 3 'test' 4 5)
+myT : (1 2 3 'test' 4 5)
 
 //Dictionaly (Structure)
 myStationary : 
@@ -49,45 +49,74 @@ myStationary :
     number : 4
   pen    : 1
 
+//calculate  
+
+x : 1 // let x =1
+
+x++
+x : x + 3  // Add
+
+x--
+x : x - 3  // Sub
+
+x : x * 2    // Multi
+x : x ** 2   // Power
+x : x ** 1/2 // SqR
+x : x / 2    // Divide
+
+x = 20      // Equal
+x < 20      // Less
+x > 20      // More
+
+
+z :
+  a : 1
+  b : 2
+  a + b
+
+
 
 // structure Abstruction
 
-Profile o :
+ProfileA o :
   //declare public
   first
   father
-
   name : (first ' ' last)
 
-openAge o :
+// deregation
+ProfileB <- ProfileA :
   age
   sayAge x : ("I'm " (age - x) 'years.')
 
-luke : Profile
+luke : ProfileA
   first  : 'Luke'
   last   : 'Skywalker'
   age    : 18
-  father : Profile openAge
+  father : ProfileB
     first  : 'Anakin'
     last
     age    : infinity
 
 
-say luke name 
 
-say ^x -> luke[x] 'first'
+say luke name // Luke Skywalker
+
+say ^x -> luke[x] 'first' // luke
 
 say luke age //none
 
-say luke father age
+say luke father age //infinity
 
 
-//Enumerate
+//case
 
-getCase x : case x
+case x
   'Luke' : 'first'
   'Skywalker' : 'last'
   18 : 'age'
-  'father' : Profile
-    first : 'Anakin'
+  'Anakin' : father
+
+
+// 
 
