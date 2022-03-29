@@ -44,8 +44,7 @@ R f x :
   x
 
 say R
-  x -> ('Left' x)
-    'Right'
+  x -> ('Left' x) 'Right'
 
 
 //Tuple
@@ -54,10 +53,13 @@ myT : (1 'test' 2 3 4 5)
 
 // function can take a Tuple and it spread automatic
 
-second _ x _ : x
+first x ..y : x
 
 first myT
 
+second _ x ..y : x
+
+second myT
 
 //Dictionaly (Structure)
 
