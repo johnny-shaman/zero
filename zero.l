@@ -17,17 +17,24 @@
 %}
 
 %%
-" "   {}
+" "   return SP ;
 "\n"  return CR ;
 
 "<="  return ELS ;
+"=<"  return ELS ;
 ">="  return EMR ;
-"->"  return RIT ;
-"<-"  return LFT ;
+"=>"  return EMR ;
+
+"<<"  return SHL ;
+">>"  return SHR ;
+
+"->"  return RTA ;
+"<-"  return LTA ;
+
+".."  return SCT ;
 
 "++"  return INC ;
 "--"  return DEC ;
-".."  return SPR ;
 
 "<"   return LES ;
 ">"   return MOR ;
@@ -38,18 +45,24 @@
 "+"	  return SUM ;
 "-"	  return SUB ;
 
+"&"   return AND ;
+"!"   return NOT ;
+
+
 "="   return EQ ;
-":"   return IS ;
+":"   return CLN ;
+";"   return SCN ;
 ","   return CNM ;
 "."   return DOT ;
 
 "|"   return PIP ;
-"^"   return CLT ;
 
 "("   return LSP ;
 ")"   return RSP ;
 "["   return LLP ;
 "]"   return RLP ;
+
+"_"   return DRP ;
 
 
 [-]*[0-9]+ {
@@ -60,6 +73,6 @@
 
 }
 
-[$_a-zA-Z]*[$_a-zA-Z0-9]+ {
+[\$_a-zA-Z]*[\$_a-zA-Z0-9]+ {
 
 }
