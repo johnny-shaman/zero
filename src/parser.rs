@@ -1,7 +1,7 @@
 use peg;
 use crate::node::Node;
 // トマト言語の文法定義 --- (*1)
-peg::parser!( pub grammar tomato() for str {    
+peg::parser!( pub grammar zero() for str {    
     // ルートとなる規則を定義 --- (*2)
     pub rule parse() -> Vec<Node> 
         = v:sentences()

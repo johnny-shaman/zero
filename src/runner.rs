@@ -1,5 +1,5 @@
 use std::collections::HashMap;
-use crate::parser::tomato;
+use crate::parser::zero;
 use crate::node::Node;
 
 // プログラム全体で使うコンテキストを定義 --- (*1)
@@ -62,7 +62,7 @@ fn run_nodes(ctx: &mut Context, nodes: &Vec<Node>) -> i64 {
 }
 // 手軽にプログラムを実行する関数 --- (*11)
 pub fn run(src: &str) -> i64 {
-    let nodes = tomato::parse(src).unwrap();
+    let nodes = zero::parse(src).unwrap();
     let mut ctx = Context{vars:HashMap::new()};
     run_nodes(&mut ctx, &nodes)
 }
