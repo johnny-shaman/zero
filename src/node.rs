@@ -4,8 +4,8 @@ pub enum Node {
     Nop, // 何もしない
     Number(i64), // 数値を表す
     Calc(char, Box<Node>, Box<Node>), // 計算式
-    Print(Box<Node>), // print文(計算出力)
-    PrintStr(String), // print文(定数出力)
+    Print(Box<Node>), // say文(計算出力)
+    PrintStr(String), // say文(定数出力)
     SetVar(String, Box<Node>), // 変数代入
     GetVar(String), // 変数参照
 }
