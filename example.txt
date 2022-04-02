@@ -6,9 +6,9 @@
 main _ : 
   say 'Hello World'
   say
-    'Hello Zero'
+    'Hello World'
   say
-    ('Hello' ' ' 'Zero')
+    ('Hello' ' ' 'World')
 
 // Otherwise hello world
 
@@ -120,7 +120,7 @@ luke : ProfileA
   father : ProfileB
     first  : 'Anakin'
     last
-    age    : infinity
+    age    : 100
 
 
 
@@ -141,8 +141,11 @@ case x
   'Luke' : 'first'
   'Skywalker' : 'last'
   18 : 'age'
-  'Anakin' : father
+  'Anakin' : 'father'
 
 
-// 
+// import (exturn)
+
+IO : @stdio
+myCons : @./myCons
 
