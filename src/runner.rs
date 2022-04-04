@@ -12,8 +12,9 @@ struct Context {
 fn run_node(ctx: &mut Context, node: Node) -> i64 {
     // どのタイプのノードかを判定
     match node {
-        Node::Number(v) => v, // 数値を返す
-        Node::Calc(op, l, r) => { // 計算式 --- (*3)
+        Node::Number(v) => v, // 数値
+        Node::Pair(l, r) => (l, r) // Tuple
+        Node::Calc(op, pair) => { // 計算式 --- (*3)
             calc_op(op, run_node(ctx, *l), run_node(ctx, *r))
         },
         Node::GetVar(name) => { // 変数の値を得る --- (*4)
@@ -36,6 +37,8 @@ fn run_node(ctx: &mut Context, node: Node) -> i64 {
         _ => 0,
     }
 }
+
+
 // 演算子に基づいて計算を行う --- (*9)
 fn calc_op(op: char, val_l:i64, val_r:i64) -> i64 {
     match op {

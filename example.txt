@@ -1,6 +1,5 @@
 
-#clean language
-
+#zero language
 
 //ex hello world
 main _ : 
@@ -53,11 +52,11 @@ myT : (1 'test' 2 3 4 5)
 
 // function can take a Tuple and it spread automatic
 
-first x ..y : x
+first : id
 
 first myT
 
-second _ x ..y : x
+second _ x : x
 
 second myT
 
@@ -72,18 +71,30 @@ myStationary :
 
 //calculate  
 
-x : 1 // let x =1
+x : 1 // let x = 1
 
-x++
+y : x + 3
+y : x - 3
+y : x * 2
+y : x / 2
+y : x ** 2
+y : x ** 1/2
+
+
+//redefine calculate
+
+x++     //increment
+x--     //declement
+
 x :+ 3  // Add
-
-x--
 x :- 3  // Sub
 
 x :* 2    // Multi
 x :** 2   // Power
 x :** 1/2 // SqR
 x :/ 2    // Divide
+
+
 
 x = 20      // Equal
 x < 20      // Less
@@ -113,22 +124,20 @@ ProfileB <- ProfileA :
   age
   sayAge x : ("I'm " (age - x) 'years.')
 
-luke : ProfileA
+luke k : ProfileA
   first  : 'Luke'
   last   : 'Skywalker'
   age    : 18
-  father : ProfileB
+  father k : ProfileB
     first  : 'Anakin'
-    last
+    last // auto delegation from luke
     age    : 100
 
 
 
 say luke name // Luke Skywalker
 
-say 
-  x -> luke[x]
-    'first'
+say x -> luke x 'first'
 
 say luke age //none
 
@@ -144,8 +153,25 @@ case x
   'Anakin' : 'father'
 
 
-// import (exturn)
+// borrow (Pointer)
 
-IO : @stdio
-myCons : @./myCons
+x : 5
+y :> x
+z <: y
+
+
+// export
+// @ : Reference my namespace
+
+@ :> x : x
+@ :> x y :
+  x
+  y
+
+
+
+// import
+
+IO <: @stdio
+Vector2D <: @./vector2D
 

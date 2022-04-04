@@ -1,17 +1,32 @@
 // 文法要素をNode型として定義 --- (*1)
 #[derive(Debug, Clone)]
 pub enum Node {
-    Nop, // 何もしない
-    Number(i64), // 数値を表す
-    Calc(char, Box<Node>, Box<Node>), // 計算式
-    Print(Box<Node>), // say文(計算出力)
-    PrintStr(String), // say文(定数出力)
-    SetVar(String, Box<Node>), // 変数代入
-    GetVar(String), // 変数参照
+    Np, // 何もしない
+    Int(isize), // 数値
+    Float(f64), // 数値
+    String(str), // String
+    Bit(bool), // Boolean
+    Byte(char),
+    Char(char),
+    Pair(Box<Node>, Box<Node>),
+    Op(char),
+    Sets(str, Box<Node>), // set
+    Gets(str), // get
+    Lambda(str, Box<Node>) //^xy.xy,
 }
 impl Node {
-    // 手軽にNode::Calc型を返す関数 --- (*2)
-    pub fn calc(op: char, l: Node, r: Node) -> Node {
-        Node::Calc(op, Box::new(l), Box::new(r))
+
+    pub fn pair(l: Node, r: Node) -> Node {
+        return Node::Pair(Box::new(l), Box::new(r));
     }
+
+    pub fn lambda(l: str, r: Node) -> Node {
+        return Node::Lambda(l, Box::new(r));
+    }
+
+    pub fn sets(l: str r: Node::Tuple) -> Node {
+        Node::Sets(l, Box::new(r.r));
+    }
+
 }
+
