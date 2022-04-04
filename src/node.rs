@@ -7,10 +7,25 @@ pub enum Node {
     Bit(bool),
     Byte(char),
     Char(char),
-    Op(str), // lambda fn is Op 'Node -> Node'
-    Pair(Box<Node>, Box<Node>),
-    Sets(str, Box<Node>),
-    Gets(str),
+    
+    Uop(char, Box<Node>),
+    /*
+    Increment   ('++' Node)      : u
+    Decrement   ('--' Node)      : d
+    Get         ('' str)         : i
+    Apply       (Node: f Node)   : a
+
+
+
+    */
+    Bop(Box<Node> char, Box<Node>)
+    /*
+    Lambda      (Node '->' Node) : l
+    Constant    (str ':' Node)   : c
+    Separate    (Node ' ' Node)  : s
+    Pipe        (Node '|' Node)  : p
+    */
+
 }
 impl Node {
 

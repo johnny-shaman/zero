@@ -2,20 +2,19 @@ use std::collections::HashMap;
 use crate::parser::zero;
 use crate::node::Node;
 
-// プログラム全体で使うコンテキストを定義 --- (*1)
 struct Context {
-    // 変数と値を保持
-    vars: HashMap<String, i64>,
+    vars: HashMap<str, T>,
 }
 
 // 構文木を一つ実行する --- (*2)
 fn run_node(ctx: &mut Context, node: Node) -> i64 {
     // どのタイプのノードかを判定
     match node {
-        Node::Number(v) => v, // 数値
+        Node::Int(v: isize) => v,
+        Node::Float(v: u64) => v
         Node::Pair(l, r) => (l, r) // Tuple
-        Node::Calc(op, pair) => { // 計算式 --- (*3)
-            calc_op(op, run_node(ctx, *l), run_node(ctx, *r))
+        Node::Op(op) => {
+            
         },
         Node::GetVar(name) => { // 変数の値を得る --- (*4)
             match ctx.vars.get(&name) {
@@ -40,7 +39,7 @@ fn run_node(ctx: &mut Context, node: Node) -> i64 {
 
 
 // 演算子に基づいて計算を行う --- (*9)
-fn calc_op(op: char, val_l:i64, val_r:i64) -> i64 {
+fn calc_op(val_l:i64, val_r:i64) -> i64 {
     match op {
         '+' => val_l + val_r,
         '-' => val_l - val_r,

@@ -1,27 +1,21 @@
 use peg;
 use crate::node::Node;
 
-peg::parser!( pub grammar zero() for str {    
-  pub rule parse() -> Vec<Node> 
-    = v:sentences()
+peg::parser!( pub grammar zero() for str {
+  pub rule parse() -> Vec<Node> = v:sentences()
 
-  rule sentences() -> Vec<Node>
-    = sentence() ** end_of_line()
-
+  rule sentences() -> Vec<Node> = sentence() ** end_of_line()
   rule sentence() -> Node
-    = Pair() {Node::Pair} / L() {Node::L} / say() / let() /  _ { Node::Nop }
+  = Pair() {Node::Pair}
+  / Op() {Node::Op}
+  /  _ { Node::Np }
   
-  rule say() -> Node
-    = "say" _ "\"" v:$([^ '"']*) "\""
-    { Node::SayStr(v.to_string()) }
-    / "say" _ v:calc()
-    { Node::Say(Box::new(v)) }
-
   rule let() -> Node
-    = w:word() _ ":" _ v:calc() 
+    = w:word() _ ":" _ v:calc()
     { Node::SetVar(w, Box::new(v))}
-
-  rule calc() -> Node = comp()
+  
+  rule op() -> Node
+    = 
 
   rule comp() -> Node
     = l:expr() "=" _ r:comp() { Node::calc('=', l, r) }
