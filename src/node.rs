@@ -7,7 +7,7 @@ pub enum Node {
     Bit(bool),
     Byte(char),
     Char(char),
-    Op(str),
+    Op(str), // lambda fn is Op 'Node -> Node'
     Pair(Box<Node>, Box<Node>),
     Sets(str, Box<Node>),
     Gets(str),
