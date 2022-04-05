@@ -8,33 +8,50 @@ pub enum Node {
     Byte(char),
     Char(char),
     
-    Uop(char, Box<Node>),
+    Pair(Box<Node>, Box<Node>),
+    /*
+    Apply       (Node: Lambda,  Node)   : a // Bop ?
+    */
+
+    Bop(String, Box<Node>)
     /*
     Increment   ('++' Node)      : u
     Decrement   ('--' Node)      : d
-    Get         ('' str)         : i
-    Apply       (Node: f Node)   : a
-
-
-
+    Not         ('!' Node)       : !
+    Negate      ('-' Node)       : -
     */
-    Bop(Box<Node> char, Box<Node>)
+
+    Aop(Box<Node>, String)
+    /*
+    Increment   (Node '++')      : u
+    Decrement   (Node '--')      : d
+    Factrial    (Node '!')       : !
+    */
+
+    Mop(Box<Node> String, Box<Node>),
     /*
     Lambda      (Node '->' Node) : l
     Constant    (str ':' Node)   : c
-    Separate    (Node ' ' Node)  : s
-    Pipe        (Node '|' Node)  : p
+    Separate    (Node ' ' or '/n' Node)  : s
+    Pipe        (Node '|' Node: Lambda)  : p
+    this        (Node '.' Node: Lambda)  : m
     */
 
 }
 impl Node {
-
     pub fn pair(l: Node, r: Node) -> Node {
         return Node::Pair(Box::new(l), Box::new(r));
     }
 
-    pub fn sets(l: str r: Node::Tuple) -> Node {
-        return Node::Sets(l, Box::new(r.r));
+    pub fn bop(l: String, r: Node) -> Node {
+        return Node::Bop(l, Box::new(r));
     }
 
+    pub fn aop(l: Node, r: String) -> Node {
+        return Node::Aop(Box::new(l), r);
+    }
+
+    pub fn mop(l: Node, op: String, r: Node) -> Node {
+        return Node::Mop(op, Box::new(l), Box::new(r));
+    }
 }
