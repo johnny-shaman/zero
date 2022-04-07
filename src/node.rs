@@ -1,9 +1,7 @@
 #[derive(Debug, Clone)]
 pub enum Node {
-    Np,
     Int(isize),
     Float(f64),
-    String(str),
     Bit(bool),
     Byte(char),
     Char(char),
@@ -11,9 +9,10 @@ pub enum Node {
     Pair(Box<Node>, Box<Node>),
     /*
     Apply       (Node: Lambda,  Node)   : a // Bop ?
+    List        (Node, Node: Pair)      : 
     */
 
-    Bop(String, Box<Node>)
+    Bop(String, Box<Node>),
     /*
     Increment   ('++' Node)      : u
     Decrement   ('--' Node)      : d
@@ -21,7 +20,7 @@ pub enum Node {
     Negate      ('-' Node)       : -
     */
 
-    Aop(Box<Node>, String)
+    Aop(Box<Node>, String),
     /*
     Increment   (Node '++')      : u
     Decrement   (Node '--')      : d

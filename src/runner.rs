@@ -7,21 +7,24 @@ struct Context {
 }
 
 // 構文木を一つ実行する --- (*2)
-fn run_node(ctx: &mut Context, node: Node) -> i64 {
+fn run_node(ctx: &mut Context, node: Node) -> Node {
     // どのタイプのノードかを判定
     match node {
         Node::Int(v: isize) => v,
-        Node::Float(v: u64) => v
-        Node::Pair(l, r) => (l, r) // Tuple
-        Node::Op(op) => {
+        Node::Float(v: u64) => v,
+        Node::
+        Node::Pair(l, r) => (l, r), // Tuple
+        Node::Bop(op, ) => {
             
         },
+
         Node::GetVar(name) => { // 変数の値を得る --- (*4)
             match ctx.vars.get(&name) {
                 Some(v) => *v,
                 None => 0,
             }
         },
+
         Node::SetVar(name, node) => { // 変数の代入
             let val = run_node(ctx, *node);
             ctx.vars.insert(name, val);

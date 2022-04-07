@@ -1,53 +1,56 @@
 
-#zero language
+# zero language
 
-//ex hello world
+## ex hello world
+```
 main _ : 
   say 'Hello World'
   say
     'Hello World'
   say
     ('Hello' ' ' 'World')
+```
 
-// Otherwise hello world
+### Otherwise hello world
 
-main _ -> say 'Hello World'
+```main _ -> say 'Hello World'```
 
 
-//ex Functional 1
-
+## ex Functional 1
+```
 mul : *
 dbl : mul 2
 say dbl 3
+```
 
-
-//ex Functional 2
-
-myFn a b : a ** 2 + a * b
+## ex Functional 2
+```
+myFn a b -> a ** 2 + a * b
 myFn2 : myFn 2
 
 say myFn2 3
 
 say 4 myFn 7
+```
+## ex Functional 3
 
-
-//ex Functional 3
+```
 //Can use ',' or ';'
 
-R f x : f x , x
+R f x -> f x , x
 
 // Write Otherwise
 
-R f x :
+R f x ->
   f x
   x
 
-say R
-  x -> ('Left' x) 'Right'
+say R x -> ('Left' x) 'Right'
 
+```
 
-//Tuple
-
+## Tuple
+```
 myT : (1 'test' 2 3 4 5)
 
 // function can take a Tuple and it spread automatic
@@ -55,22 +58,30 @@ myT : (1 'test' 2 3 4 5)
 first : id
 
 first myT
+myT first
 
-second _ x : x
+second _ x -> x
 
 second myT
+myT second
 
-//Dictionaly (Structure)
+//Higher
+myT filter int | map * 2 | fold +
+```
 
+## Dictionaly (Structure)
+```
 myStationary : 
   pencil : 3
   eraser :
     type   : 'soft'
     number : 4
   pen    : 1
+```
 
-//calculate  
+## calculate  
 
+```
 x : 1 // let x = 1
 
 y : x + 3
@@ -81,7 +92,7 @@ y : x ** 2
 y : x ** 1/2
 
 
-//redefine calculate
+//calculate redefinition
 
 x++     //increment
 x--     //declement
@@ -94,25 +105,25 @@ x :** 2   // Power
 x :** 1/2 // SqR
 x :/ 2    // Divide
 
-
-
 x = 20      // Equal
 x < 20      // Less
 x > 20      // More
-
 
 z :
   a : 1
   b : 2
   a + b
 
-z x :
+z x ->
   a : 3
   b : 4
   a + b - x
 
-// structure Abstruction
+```
 
+## structure Abstruction
+
+```
 ProfileA o :
   //declare public
   first
@@ -143,35 +154,37 @@ say luke age //none
 
 say luke father age //infinity
 
-
-//case
-
+```
+## case
+```
 case x
   'Luke' : 'first'
   'Skywalker' : 'last'
   18 : 'age'
   'Anakin' : 'father'
-
+```
 
 // borrow (Pointer)
 
+```
 x : 5
 y :> x
 z <: y
-
+```
 
 // export
 // @ : Reference my namespace
 
+```
 @ :> x : x
 @ :> x y :
   x
   y
-
+```
 
 
 // import
-
+```
 IO <: @stdio
 Vector2D <: @./vector2D
-
+```
