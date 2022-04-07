@@ -12,11 +12,10 @@ fn run_node(ctx: &mut Context, node: Node) -> Node {
     match node {
         Node::Int(v: isize) => v,
         Node::Float(v: u64) => v,
-        Node::
+        Node::Logic(v: bool) => v,
         Node::Pair(l, r) => (l, r), // Tuple
-        Node::Bop(op, ) => {
-            
-        },
+        Node::Bop(op, r) => op(r),
+        Node::Aop()
 
         Node::GetVar(name) => { // 変数の値を得る --- (*4)
             match ctx.vars.get(&name) {
