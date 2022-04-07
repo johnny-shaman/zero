@@ -176,10 +176,8 @@ z <: y
 // @ : Reference my namespace
 
 ```
-@ :> x : x
-@ :> x y :
-  x
-  y
+@ :> x -> x
+@ :> x y -> (x y)
 ```
 
 
