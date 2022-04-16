@@ -4,8 +4,7 @@ pub enum Node {
     Float(f64),
     Logic(bool),
     Byte(char),
-    Char(char)
-    
+    Char(char),
     Pair(Box<Node>, Box<Node>),
     /*
     Apply       (Node: Lambda,  Node)   : a // Bop ?

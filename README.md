@@ -3,22 +3,21 @@
 
 ## ex hello world
 ```
-main _ : 
+main _ -> 
   say 'Hello World'
+
+  say flat ('Hello' ' ' 'World')
+
+  // to = map
   say
-    'Hello World'
-  say
-    ('Hello' ' ' 'World')
+    to upper 'Hello World'
+
+  say flat ('Hello' ' ' 'World')
 ```
-
-### Otherwise hello world
-
-```main _ -> say 'Hello World'```
-
 
 ## ex Functional 1
 ```
-mul : *
+mul : * //Type of mul is *
 dbl : mul 2
 say dbl 3
 ```
@@ -32,20 +31,20 @@ say myFn2 3
 
 say 4 myFn 7
 ```
-## ex Functional 3
 
+## ex Functional 3
 ```
 //Can use ',' or ';'
 
 R f x -> f x , x
 
-// Write Otherwise
+// Write Otherwise (Looks like a Pascal)
 
 R f x ->
   f x
   x
 
-say R x -> ('Left' x) 'Right'
+say R x -> ('Left' x) 'Right' // Output only 'Right'
 
 ```
 
@@ -79,8 +78,7 @@ myStationary :
   pen    : 1
 ```
 
-## calculate  
-
+## calculate
 ```
 x : 1 // let x = 1
 
@@ -118,33 +116,43 @@ z x ->
   a : 3
   b : 4
   a + b - x
-
 ```
 
 ## structure Abstruction
-
 ```
-ProfileA o :
-  //declare public
+ProfileA : o ->
+  //declare public (Public Optional = Undeclare)
   first
   father
+
+  //Can declare private (It's a option but declared Type must to take!)
+  ! hobby
+
+  //declare private optional
+  ? job
+
+  //declare Product Type(Can private)
+  ! address | tel | email \.*[@]+.*\
+  twitter \[@]+.*\ | facebook
+
+  // declare Method
   name : (first ' ' last)
 
 // deregation
-ProfileB <- ProfileA :
-  age
-  sayAge x : ("I'm " (age - x) 'years.')
+ProfileB : ProfileA ->
+  hobby
+  sayAge x : ("I'm " (age - x) "years.")
 
 luke k : ProfileA
   first  : 'Luke'
   last   : 'Skywalker'
+  hobby  : 'Electronics'
   age    : 18
   father k : ProfileB
     first  : 'Anakin'
     last // auto delegation from luke
+    hobby  : 'Electronics'
     age    : 100
-
-
 
 say luke name // Luke Skywalker
 
@@ -164,16 +172,21 @@ case x
   'Anakin' : 'father'
 ```
 
-// borrow (Pointer)
+// lift flat (Pointer)
 
 ```
 x : 5
-y :> x
-z <: y
+y :> x // lift
+z <: y // flat
+
+a <: 'abc' // (char, char, char) <: String
+to equal a ('a' 'b' 'c') // true
+
+
 ```
 
 // export
-// @ : Reference my namespace
+// @ : Reference global
 
 ```
 @ :> x -> x
@@ -183,6 +196,6 @@ z <: y
 
 // import
 ```
-IO <: @stdio
-Vector2D <: @./vector2D
+IO <: @ stdio  // in memory
+Vector2D <: @ ./vector2D // file
 ```

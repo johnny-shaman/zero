@@ -31,6 +31,10 @@ peg::parser!( pub grammar zero() for str {
     / l:value() _ "|"  _ r:value() { Node::bop("|", l, r)  }
     / l:value() _ "<<" _ r:value() { Node::bop("<<", l, r) }
     / l:value() _ ">>" _ r:value() { Node::bop(">>", l, r) }
+    /proc()
+
+  rule proc() -> Node 
+    = l:word()" "r:word() {}
 
   rule value() -> Node
     = "("v:value() _ m:op() _ v:value()")" _ { v }
