@@ -4,6 +4,13 @@
 ## ex hello world
 ```
 main _ -> 
+
+  //comment
+
+  /*
+    comment
+  */
+
   say 'Hello World'
 
   say <- ('Hello' ' ' 'World')
