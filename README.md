@@ -6,13 +6,13 @@
 main _ -> 
   say 'Hello World'
 
-  say flat ('Hello' ' ' 'World')
+  say <- ('Hello' ' ' 'World')
 
   // to = map
   say
     to upper 'Hello World'
 
-  say flat ('Hello' ' ' 'World')
+  say <- ('Hello' ' ' 'World')
 ```
 
 ## ex Functional 1
@@ -24,12 +24,12 @@ say dbl 3
 
 ## ex Functional 2
 ```
-myFn a b -> a ** 2 + a * b
-myFn2 : myFn 2
+myFn a b -> a ** 2 + a * b // take 2 arges
+myFn2 : myFn 2             // carrying
 
 say myFn2 3
 
-say 4 myFn 7
+say 4 myFn 7               // Can write Other side
 ```
 
 ## ex Functional 3
