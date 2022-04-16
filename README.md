@@ -130,7 +130,6 @@ z x ->
 ProfileA : o ->
   //declare public (Public Optional = Undeclare)
   first
-  father
 
   //Can declare private (It's a option but declared Type must to take!)
   ! hobby
@@ -138,23 +137,34 @@ ProfileA : o ->
   //declare private optional
   ? job
 
-  //declare Product Type(Can private)
-  ! address | tel | email \.*[@]+.*\
+  //declare Product Type
   twitter \[@]+.*\ | facebook
+  ! address | tel | email \.*[@]+.*\  // (Can private)
+
+  // declare Product grouping
+  sex (male | female)
+
 
   // declare Method
   name : (first ' ' last)
 
 // deregation
 ProfileB : ProfileA ->
+  // Can Migrate private <-> public
   hobby
+  ! first
+  // Can Migrate Optional
+  ? sex
+  // 
   sayAge x : ("I'm " (age - x) "years.")
 
 luke k : ProfileA
   first  : 'Luke'
   last   : 'Skywalker'
   hobby  : 'Electronics'
+  sex    : male: true
   age    : 18
+  twitter : '@LukeSkyW'
   father k : ProfileB
     first  : 'Anakin'
     last // auto delegation from luke
