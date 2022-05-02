@@ -3,7 +3,7 @@
 
 ## ex hello world
 ```
-main _ -> 
+main : _ -> 
 
   //comment
 
@@ -13,13 +13,13 @@ main _ ->
 
   say 'Hello World'
 
-  say <- ('Hello' ' ' 'World')
+  say ('Hello' ' ' 'World')
 
   // to = map
   say
     to upper 'Hello World'
 
-  say <- ('Hello' ' ' 'World')
+  say ('Hello' ' ' 'World')
 ```
 
 ## ex Functional 1
@@ -31,7 +31,7 @@ say dbl 3
 
 ## ex Functional 2
 ```
-myFn a b -> a ** 2 + a * b // take 2 arges
+myFn : a b -> a ** 2 + a * b // take 2 arges
 myFn2 : myFn 2             // carrying
 
 say myFn2 3
@@ -43,11 +43,11 @@ say 4 myFn 7               // Can write Other side
 ```
 //Can use ',' or ';'
 
-R f x -> f x , x
+R : f x -> f x , x
 
 // Write Otherwise (Looks like a Pascal)
 
-R f x ->
+R : f x ->
   f x
   x
 
@@ -119,7 +119,7 @@ z :
   b : 2
   a + b
 
-z x ->
+z : x ->
   a : 3
   b : 4
   a + b - x
@@ -158,14 +158,14 @@ ProfileB : ProfileA ->
   // 
   sayAge x : ("I'm " (age - x) "years.")
 
-luke k : ProfileA
+luke : k -> ProfileA
   first  : 'Luke'
   last   : 'Skywalker'
   hobby  : 'Electronics'
   sex    : male: true
   age    : 18
   twitter : '@LukeSkyW'
-  father k : ProfileB
+  father : k -> ProfileB
     first  : 'Anakin'
     last // auto delegation from luke
     hobby  : 'Electronics'
@@ -186,7 +186,7 @@ case x
   'Luke' : 'first'
   'Skywalker' : 'last'
   18 : 'age'
-  'Anakin' : 'father'
+  'Anakin' : ('father' 'first')
 ```
 
 // lift flat (Pointer)
