@@ -3,7 +3,7 @@
 
 ## ex hello world
 ```
-main : _ -> 
+main _ :
 
   //comment
 
@@ -31,7 +31,7 @@ say dbl 3
 
 ## ex Functional 2
 ```
-myFn : a b -> a ** 2 + a * b // take 2 arges
+myFn a b : a ** 2 + a * b // take 2 arges
 myFn2 : myFn 2             // carrying
 
 say myFn2 3
@@ -43,11 +43,11 @@ say 4 myFn 7               // Can write Other side
 ```
 //Can use ',' or ';'
 
-R : f x -> f x , x
+R f x : f x , x
 
 // Write Otherwise (Looks like a Pascal)
 
-R : f x ->
+R f x :
   f x
   x
 
@@ -66,13 +66,13 @@ first : id
 first myT
 myT first
 
-second _ x -> x
+second _ x : x
 
 second myT
 myT second
 
 //Higher
-myT filter int | map * 2 | fold +
+myT filter Number => map * 2 => fold +
 ```
 
 ## Dictionaly (Structure)
@@ -117,17 +117,12 @@ x > 20      // More
 z :
   a : 1
   b : 2
-  a + b
-
-z : x ->
-  a : 3
-  b : 4
-  a + b - x
+  a + b // 3
 ```
 
 ## structure Abstruction
 ```
-ProfileA : o ->
+ProfileA o :
   //declare public (Public Optional = Undeclare)
   first
 
@@ -149,23 +144,24 @@ ProfileA : o ->
   name : (first ' ' last)
 
 // deregation
-ProfileB : ProfileA ->
+ProfileB @profileA o :
+
   // Can Migrate private <-> public
   hobby
   ! first
   // Can Migrate Optional
   ? sex
-  // 
+  //
   sayAge x : ("I'm " (age - x) "years.")
 
-luke : k -> ProfileA
+luke : ProfileA
   first  : 'Luke'
   last   : 'Skywalker'
   hobby  : 'Electronics'
   sex    : male: true
   age    : 18
   twitter : '@LukeSkyW'
-  father : k -> ProfileB
+  father : ProfileB
     first  : 'Anakin'
     last // auto delegation from luke
     hobby  : 'Electronics'
@@ -206,13 +202,13 @@ to equal a ('a' 'b' 'c') // true
 // @ : Reference global
 
 ```
-@ :> x -> x
-@ :> x y -> (x y)
+@ <: x -> x
+@ <: x y -> (x y)
 ```
 
 
 // import
 ```
-IO <: @ stdio  // in memory
-Vector2D <: @ ./vector2D // file
+@ :>  stdio  // in memory
+@ :> ./vector2D // file
 ```

@@ -3,5 +3,11 @@ name = "zero"
 version = "0.1.0"
 edition = "2021"
 
+authors = ["Noboru Okazaki <johnny.shaman.saxophonist@gamil.com>"]
+
 [dependencies]
-peg = "0.8"
+docopt = "0.6"
+llvm-sys = "*"
+regex = "*"
+regex_macros = "*"
+rustc-serialize = "0.3"
