@@ -17,7 +17,7 @@ pub enum Token {
     Comma,
     Collon,
     At,
-    String,
+    String(String),
     Ident(String),
     Number(f64),
     Operator(String)
@@ -37,7 +37,8 @@ pub fn tokenize(input: &str) -> Vec<Token> {
         r"(?P<oppar>\()|",
         r"(?P<clpar>\))|",
         r"(?P<comma>,)|",
-        r"(?P<operator>\S)"));
+        r"(?P<operator>\S)"
+    ));
 
     for cap in token_re.captures_iter(preprocessed.as_str()) {
         let token = if cap.name("ident").is_some() {
@@ -49,6 +50,8 @@ pub fn tokenize(input: &str) -> Vec<Token> {
                 Ok(number) => Number(number),
                 Err(_) => panic!("Lexer failed trying to parse number")
             }
+        } else if cap.name("string").is_some() {
+            String(cap.name("string").unwrap().to_string())
         } else if cap.name("at").is_some() {
             At
         } else if cap.name("oppar").is_some() {
