@@ -1,3 +1,4 @@
+//< ch-1 ch-4 ch-5 ch-6
 use std::collections::HashMap;
 
 use lexer::*;
@@ -10,19 +11,26 @@ pub use self::ASTNode::{
 pub use self::Expression::{
     LiteralExpr,
     VariableExpr,
+//> ch-1 ch-4
     UnaryExpr,
+//< ch-1 ch-4
     BinaryExpr,
+//> ch-1
     ConditionalExpr,
     LoopExpr,
+//> ch-4 ch-5
     VarExpr,
+//< ch-1 ch-4 ch-5
     CallExpr
 };
+//> ch-1 ch-4
 
 pub use self::FunctionType::{
     Normal,
     UnaryOp,
     BinaryOp
 };
+//< ch-1 ch-4
 
 use self::PartParsingResult::{
     Good,
@@ -30,18 +38,22 @@ use self::PartParsingResult::{
     Bad
 };
 
+//< parser-astnode
 #[derive(PartialEq, Clone, Debug)]
 pub enum ASTNode {
     ExternNode(Prototype),
     FunctionNode(Function)
 }
+//> parser-astnode
 
+//< parser-defproto
 #[derive(PartialEq, Clone, Debug)]
 pub struct Function {
     pub prototype: Prototype,
     pub body: Expression
 }
 
+//< binary-proto
 #[derive(PartialEq, Clone, Debug)]
 pub struct Prototype {
     pub name: String,
@@ -113,19 +125,20 @@ pub struct ParserSettings {
 //< parser-default-settings mutable-parser-default-settings
 pub fn default_parser_settings() -> ParserSettings {
     let mut operator_precedence = HashMap::new();
-    operator_precedence.insert(":".to_string(), 2);
+//> ch-1 ch-4 ch-5 parser-default-settings
+    operator_precedence.insert("=".to_string(), 2);
+//< ch-1 ch-4 ch-5 parser-default-settings
     operator_precedence.insert("<".to_string(), 10);
     operator_precedence.insert("+".to_string(), 20);
     operator_precedence.insert("-".to_string(), 20);
-    operator_precedence.insert("*".to_string(), 40); -> ParsingResult
-    
+    operator_precedence.insert("*".to_string(), 40);
+
     ParserSettings{operator_precedence: operator_precedence}
 }
 //> parser-default-settings mutable-parser-default-settings
 
 //< parser-parse parser-parse-sign
-pub fn parse(tokens , parsed_tree, settings) -> ParsingResult
-    where tokens: &[Token], parsed_tree : &[ASTNode], settings : &mut ParserSettings
+pub fn parse(tokens : &[Token], parsed_tree : &[ASTNode], settings : &mut ParserSettings) -> ParsingResult
 //> parser-parse-sign
 {
     let mut rest = tokens.to_vec();
@@ -301,7 +314,7 @@ fn parse_prototype(tokens : &mut Vec<Token>, _settings : &mut ParserSettings) ->
         ] <= tokens, parsed_tokens, "expected function name in prototype");
 
     expect_token!(
-        [OpeningParenthesis, OpeningParenthesis, ()] <= tokens,
+        [OpPrn, OpPrn, ()] <= tokens,
         parsed_tokens, "expected '(' in prototype");
 
     let mut args = Vec::new();
@@ -309,7 +322,7 @@ fn parse_prototype(tokens : &mut Vec<Token>, _settings : &mut ParserSettings) ->
         expect_token!([
             Ident(arg), Ident(arg.clone()), args.push(arg.clone());
             Comma, Comma, continue;
-            ClosingParenthesis, ClosingParenthesis, break
+            ClPrn, ClPrn, break
         ] <= tokens, parsed_tokens, "expected ')' in prototype");
     }
 //> ch-1 ch-4 parser-parse-prototype
@@ -365,7 +378,7 @@ fn parse_primary_expr(tokens : &mut Vec<Token>, settings : &mut ParserSettings) 
 //< ch-5 unary-parse-expr
         Some(&Operator(_)) => parse_unary_expr(tokens, settings),
 //< ch-1 ch-4 parser-parse-primary-expr if-parser for-parser
-        Some(&OpeningParenthesis) => parse_parenthesis_expr(tokens, settings),
+        Some(&OpPrn) => parse_parenthesis_expr(tokens, settings),
         None => return NotComplete,
         _ => error("unknow token when expecting an expression")
     }
@@ -373,7 +386,9 @@ fn parse_primary_expr(tokens : &mut Vec<Token>, settings : &mut ParserSettings) 
 //> parser-parse-primary-expr if-parser for-parser unary-parse-expr mutable-var-parser
 
 //< parser-parse-ident-expr
-fn parse_ident_expr(tokens : &mut Vec<Token>, settings : &mut ParserSettings) -> PartParsingResult<Expression> {
+fn parse_ident_expr(
+    tokens : &mut Vec<Token>, settings : &mut ParserSettings
+) -> PartParsingResult<Expression> {
     let mut parsed_tokens = Vec::new();
 
     let name = expect_token!(
@@ -381,15 +396,15 @@ fn parse_ident_expr(tokens : &mut Vec<Token>, settings : &mut ParserSettings) ->
         parsed_tokens, "identificator expected");
 
     expect_token!(
-        [OpeningParenthesis, OpeningParenthesis, ()]
+        [Sp, Sp, ()]
         else {return Good(VariableExpr(name), parsed_tokens)}
         <= tokens, parsed_tokens);
 
     let mut args = Vec::new();
     loop {
         expect_token!(
-            [ClosingParenthesis, ClosingParenthesis, break;
-             Comma, Comma, continue]
+            [Collon, Collon, break;
+             Sp, Sp, continue]
             else {
                 args.push(parse_try!(parse_expr, tokens, settings, parsed_tokens));
             }
@@ -416,12 +431,12 @@ fn parse_literal_expr(tokens : &mut Vec<Token>, _settings : &mut ParserSettings)
 fn parse_parenthesis_expr(tokens : &mut Vec<Token>, settings : &mut ParserSettings) -> PartParsingResult<Expression> {
     // eat the opening parenthesis
     tokens.pop();
-    let mut parsed_tokens = vec![OpeningParenthesis];
+    let mut parsed_tokens = vec![OpPrn];
 
     let expr = parse_try!(parse_expr, tokens, settings, parsed_tokens);
 
     expect_token!(
-        [ClosingParenthesis, ClosingParenthesis, ()] <= tokens,
+        [ClPrn, ClPrn, ()] <= tokens,
         parsed_tokens, "')' expected");
 
     Good(expr, parsed_tokens)
