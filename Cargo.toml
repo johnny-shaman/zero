@@ -6,8 +6,8 @@ edition = "2021"
 authors = ["Noboru Okazaki <johnny.shaman.saxophonist@gamil.com>"]
 
 [dependencies]
-docopt = "0.6"
+docopt = "*"
 llvm-sys = "*"
 regex = "*"
 regex_macros = "*"
-rustc-serialize = "0.3"
+rustc-serialize = "*"

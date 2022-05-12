@@ -1,5 +1,6 @@
 pub use self::Token::{
     Sp,
+    End,
     OpPrn,
     ClPrn,
     Comma,
@@ -14,6 +15,7 @@ pub use self::Token::{
 #[derive(PartialEq, Clone, Debug)]
 pub enum Token {
     Sp,
+    End,
     OpPrn,
     ClPrn,
     Comma,
@@ -32,7 +34,8 @@ pub fn tokenize(input: &str) -> Vec<Token> {
     let mut result = Vec::new();
 
     let token_re = regex!(concat!(
-        r"(?P<sp>[ \n]+)|",
+        r"(?P<sp> +)|",
+        r"(?P<lf>\n+)|",
         r"(?P<ident>[A-z]+\w)|",
         r"(?P<number>\d+\.?\d*)|",
         r"(?P<string>'.*'+)|"
@@ -57,6 +60,8 @@ pub fn tokenize(input: &str) -> Vec<Token> {
             String(cap.name("string").unwrap().to_string())
         } else if cap.name("sp").is_some() {
             Sp
+        } else if cap.name("lf").is_some() {
+            Lf
         } else if cap.name("at").is_some() {
             At
         } else if cap.name("oppar").is_some() {
