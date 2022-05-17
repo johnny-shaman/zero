@@ -15,8 +15,9 @@ pub enum Token {
     OpPrn,
     ClPrn,
     pub enum Lt {
-        N(f64),
-        S(String),
+        Int(isize),
+        Dbl(f64),
+        S(String)
     },
     Id(String),
     Pl(String)
@@ -25,8 +26,8 @@ pub enum Token {
 
 pub fn tokenize(input: &str) -> Vec<Token> {
 
-    let comment_re = regex!(r"(?m)#.*\n");
-    let preprocessed = comment_re.replace_all(input, "\n");
+    let comments = regex!(r"(?m)#.*\n");
+    let preprocessed = comments.replace_all(input, "");
     let mut result = Vec::new();
 
     let tokens = regex!(concat!(
@@ -35,7 +36,8 @@ pub fn tokenize(input: &str) -> Vec<Token> {
         r"(?P<oppar>\()|",
         r"(?P<clpar>\))|",
         r"(?P<id>[A-z]+\w)|",
-        r"(?P<n>\d+\.?\d*)|",
+        r"(?P<int>-?\d+)|",
+        r"(?P<dbl>-?\d+\.?\d+)|",
         r"(?P<s>'.*'+)|",
         r"(?P<Pl>\S)"
     ));
@@ -45,9 +47,14 @@ pub fn tokenize(input: &str) -> Vec<Token> {
             match cap.name("id").unwrap() {
                 id => Id(ident.to_string())
             }
-        } else if cap.name("n").is_some() {
-            match cap.name("n").unwrap().parse() {
-                Ok(n) => Lt::N(n),
+        } else if cap.name("int").is_some() {
+            match cap.name("int").unwrap().parse() {
+                Ok(n) => Lt::Int(n),
+                Err(n) => panic!("Lexer failed trying to parse number", n)
+            }
+        } else if cap.name("dbl").is_some() {
+            match cap.name("dbl").unwrap().parse() {
+                Ok(n) => Lt::Dbl(n),
                 Err(n) => panic!("Lexer failed trying to parse number", n)
             }
         } else if cap.name("s").is_some() {
