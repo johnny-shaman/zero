@@ -163,8 +163,8 @@ luke : ProfileA
   twitter : '@LukeSkyW'
   father : ProfileB
     first  : 'Anakin'
-    last // auto delegation from luke
-    hobby  : 'Electronics'
+    last  // auto delegation from luke
+    hobby // auto delegation from luke
     age    : 100
 
 say luke name // Luke Skywalker
@@ -176,6 +176,18 @@ say luke age //none
 say luke father age //infinity
 
 ```
+## enumrate type
+```
+Cards o : S H D C
+
+cardH1 : Cards H : 1 // Ace of Heart
+
+Pick o : first hobby
+
+Pick luke // (first : 'luke' hobby : 'Electronics')
+
+```
+
 ## case
 ```
 case x
